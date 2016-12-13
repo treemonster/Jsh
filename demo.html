@@ -1,0 +1,40 @@
+<meta charset='utf-8' />
+<script type="text/javascript" src='Jsh.js'></script>
+
+
+<script type="text/x-template" id='html_demo'>
+<div><?jshtml 
+
+return new Promise(function(resolve){
+  setTimeout(function(){
+    resolve('s1 end');
+  },1000);
+});
+
+?></div>xx<div><?jshtml 
+
+return new Promise(function(resolve){
+  setTimeout(function(){
+    resolve('s2 end');
+  },1000);
+});
+
+?></div>xx<div><?jshtml 
+
+return new Promise(function(resolve){
+  setTimeout(function(){
+    resolve('s3 end');
+  },1000);
+});
+
+?></div>
+
+
+
+</script>
+<script type="text/javascript">
+var j=new Jsh;
+j.parseHTML(html_demo.innerText).then(function(html){
+  console.log(html)
+});
+</script>
