@@ -1,5 +1,5 @@
 /*!
- * jsh library v1.2
+ * jsh library v1.2.1
  * https://xdelve.com/
  * author: treemonster
  * email: <admin@xdelve.com>
@@ -87,7 +87,7 @@ function Jsh(global,syntax,not_support_es6){
     jshs=jshs.concat(htm.map(par));
     return justParse?
       cbwrap('Promise.all(['+jshs.join(',')+']).then(function(res){return res.join("");})'):
-      Promise.all(jshs).then(function(res){res.join('');});
+      Promise.all(jshs).then(function(res){return res.join('');});
   };
 
 }

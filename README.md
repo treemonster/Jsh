@@ -126,3 +126,7 @@ v1.2 更新
 0. 修改 justParse 的结果，统一返回结果为模块定义
 
 更新效果见 test/v1.2/demo.js
+
+---
+
+v1.2.1 修复parseHTML返回值问题
