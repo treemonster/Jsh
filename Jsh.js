@@ -1,5 +1,5 @@
 /*!
- * jsh library v1.2.1
+ * jsh library v1.2.2
  * https://xdelve.com/
  * author: treemonster
  * email: <admin@xdelve.com>
@@ -80,9 +80,10 @@ function Jsh(global,syntax,not_support_es6){
     var par=function(str){
       return justParse?JSON.stringify(str):str;
     };
-    var jshs=[];
+    var jshs=[],res;
     jshtml.replace(/\<\?jshtml([\s\S]+?)(?:\?\>|$)/g,function(){
-      jshs.push(par(htm.shift()),_jsh2js(arguments[1],data,justParse));
+      res=_jsh2js(arguments[1],data,justParse);
+      jshs.push(par(htm.shift()),justParse?res:eval(res));
     });
     jshs=jshs.concat(htm.map(par));
     return justParse?
