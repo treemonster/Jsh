@@ -1,5 +1,5 @@
 /*!
- * jsh library v1.2.3
+ * jsh library v1.2.4
  * https://xdelve.com/
  * author: treemonster
  * email: <admin@xdelve.com>
@@ -48,7 +48,7 @@ function Jsh(global,syntax,not_support_es6){
     })()+
     (support_es6 && syntax==='es6'?str:str.replace(s,function(){
       var a=arguments;
-      var html=a[2].substr(1);
+      var html=a[2].substr(a[2].charAt(0)==='\n'?1:0);
       var er='"'+html.replace(/\$\{([^\}]+)\}|"|[\n\r]/g,function(){
         var a=arguments;
         switch(true){
