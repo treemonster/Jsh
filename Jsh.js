@@ -1,5 +1,5 @@
 /*!
- * jsh library v1.2.2
+ * jsh library v1.2.3
  * https://xdelve.com/
  * author: treemonster
  * email: <admin@xdelve.com>
@@ -31,7 +31,7 @@ function Jsh(global,syntax,not_support_es6){
     /(\`)((?:[^\`]|\\\`)*?)\1/gi:
     /\<\<\<([a-z\d]+)(?:(\n[\s\S]+?|.*?))\n[\x20\x09]*\1\b/gi;
   function _jsh2js(str,data,justParse){
-    str='(function(){\n\
+    return '(function(){\n\
       /* global is allowed here*/\n\
       var echo=function(str){\n\
         echo._str+=str;\n\
@@ -46,7 +46,7 @@ function Jsh(global,syntax,not_support_es6){
       ret.unshift(''),ret.concat('');
       return ret.concat('').join('\n');
     })()+
-    (support_es6?str:str.replace(s,function(){
+    (support_es6 && syntax==='es6'?str:str.replace(s,function(){
       var a=arguments;
       var html=a[2].substr(1);
       var er='"'+html.replace(/\$\{([^\}]+)\}|"|[\n\r]/g,function(){
@@ -61,7 +61,6 @@ function Jsh(global,syntax,not_support_es6){
       return er;
     }))+
     ';}();return echo._res && typeof echo._res.then==="function" ? echo._res.then(function(a){return echo._str+(a||"");}) :echo._str;})()';
-    return str;
   }
   this.parse=function(jsh,data,justParse){
     var res=_jsh2js(jsh,data,justParse);
@@ -98,6 +97,3 @@ if(typeof define!=='undefined' && define.amd)
 // for nodejs
 else if(typeof module!=='undefined')
   module.exports=Jsh;
-
-
-
