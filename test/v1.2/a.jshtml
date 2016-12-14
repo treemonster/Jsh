@@ -1,0 +1,19 @@
+<?jshtml
+var t=Promise.defer();
+echo('333');
+setTimeout(function(){
+	t.resolve('xxx');
+},100);
+
+return t.promise;
+
+?>xx<?jshtml
+var t=Promise.defer();
+echo('444');
+setTimeout(function(){
+	t.resolve('xxx');
+},100);
+
+return t.promise;
+
+?>yyyy

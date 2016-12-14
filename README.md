@@ -112,3 +112,17 @@ j.parseHTML(html_demo.innerText).then(function(html){
 
 ```
 
+
+---
+
+v1.2 更新
+
+0. 增加兼容es6的重音符模式文本模板
+
+0. 增加参数 syntax，默认多行语法为php风格的，如果syntax传入 es6，则采取重音符
+
+0. 增加参数 not_support_es6，设置为true时不论当前环境是否支持es6，都当做不支持来处理
+
+0. 修改 justParse 的结果，统一返回结果为模块定义
+
+更新效果见 test/v1.2/demo.js
