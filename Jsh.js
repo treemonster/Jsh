@@ -1,5 +1,5 @@
 /*!
- * jsh library v1.2.4
+ * jsh library v2.0
  * https://xdelve.com/
  * author: treemonster
  * email: <admin@xdelve.com>
@@ -11,7 +11,7 @@
  */
 
 
-function Jsh(global,syntax,not_support_es6){
+function Jsh(context,syntax,not_support_es6){
   var support_es6=false;
   if(!not_support_es6) try{
     eval('``');
@@ -20,7 +20,7 @@ function Jsh(global,syntax,not_support_es6){
   var cbwrap=function(str){
     return "\
     void function(){\
-    var _str=<str>;\
+    var _str={render:function(_jshArgs,context){return <str>}};\
     if(typeof define!=='undefined' && define.amd)\
       define(function(){return _str;});\
     else if(typeof module!=='undefined')\
@@ -32,19 +32,18 @@ function Jsh(global,syntax,not_support_es6){
     /\<\<\<([a-z\d]+)(?:(\n[\s\S]+?|.*?))\n[\x20\x09]*\1\b/gi;
   function _jsh2js(str,data,justParse){
     return '(function(){\n\
-      /* global is allowed here*/\n\
+      /* context is allowed here\n\
+       * console.log(context) \n\
+       */\n\
       var echo=function(str){\n\
         echo._str+=str;\n\
       };\n\
       echo._str="";echo._res=function(){'+
     (function(){
       var ret=[];
-      for(var k in data) ret.push(' var '+k+'='+JSON.stringify(data[k])+';');
-      if(justParse)
-        ret.unshift('\n/** when using justParse , data here is not effective \n *  please replace this block before use'),
-        ret.push(' */');
-      ret.unshift(''),ret.concat('');
-      return ret.concat('').join('\n');
+      for(var k in data)
+        ret.push(' var '+k+'='+(justParse?'_jshArgs.'+k:JSON.stringify(data[k]))+';');
+      return ret.join('');
     })()+
     (support_es6 && syntax==='es6'?str:str.replace(s,function(){
       var a=arguments;
