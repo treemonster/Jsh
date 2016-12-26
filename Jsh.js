@@ -1,5 +1,5 @@
 /*!
- * jsh library v2.0
+ * jsh library v2.1
  * https://xdelve.com/
  * author: treemonster
  * email: <admin@xdelve.com>
@@ -20,7 +20,7 @@ function Jsh(context,syntax,not_support_es6){
   var cbwrap=function(str){
     return "\
     void function(){\
-    var _str={render:function(_jshArgs,context){return <str>}};\
+    var _str={render:function(_jshArgs,context){with(_jshArgs)return <str>}};\
     if(typeof define!=='undefined' && define.amd)\
       define(function(){return _str;});\
     else if(typeof module!=='undefined')\
